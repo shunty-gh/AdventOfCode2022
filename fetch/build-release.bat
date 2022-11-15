@@ -1,0 +1,6 @@
+@echo off
+echo Building standalone exectuable for win64...
+dotnet publish -c Release -r win-x64
+
+echo Copying to project root...
+copy .\bin\Release\net7.0\win-x64\publish\fetch-aoc-data.exe ..

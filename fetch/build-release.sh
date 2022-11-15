@@ -1,0 +1,6 @@
+#!/bin/bash
+echo Building standalone exectuable for linux-x64...
+dotnet publish -c Release -r linux-x64
+
+echo Copying to project root...
+cp ./bin/Release/net7.0/linux-x64/publish/fetch-aoc-data ..
