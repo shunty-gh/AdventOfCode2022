@@ -3,7 +3,7 @@
 
 This tiny application is a C# program to get the daily input data for the [Advent Of Code](https://adventofcode.com) puzzles.
 
-It can be built and run under Windows or Linux. 
+It can be built and run under Windows or Linux.
 
 In order to be a good AoC citizen it will only download input data that we haven't already downloaded. Data is located in, and downloaded to, the `<project_root>/input` directory and each day file has a name of the form `day01-input`.
 
@@ -27,7 +27,7 @@ $> .\build-release
 
 This will build a (fairly large) single file program executable and then copy it to the project root directory. From there it can be run from the command line as normal.
 
-### Run 
+### Run
 
 After building the program using the supplied script/batch file:
 

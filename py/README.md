@@ -6,7 +6,7 @@ Some solutions written in Python for the [Advent of Code 2022](https://adventofc
 
 Written using Python 3.x
 
-#### Pre-requisites
+### Pre-requisites
 
 * Python 3 installed - duh
 * (Optional) [Visual Studio Code](https://code.visualstudio.com/) - the build and run/debug tasks work with VS Code
