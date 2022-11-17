@@ -1,9 +1,11 @@
-#FROM ubuntu:22.04
-FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy
+#FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy
 
-WORKDIR /home/
+# This image sets the user as 'vscode' and uses mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim
+# along with a .devcontainer configuration. See https://github.com/devcontainers/images/tree/main/src/dotnet
+FROM mcr.microsoft.com/devcontainers/dotnet:0-7.0-jammy
 
-COPY . .
+COPY ./.bash_aliases /root/.bash_aliases
+COPY ./.bash_aliases $HOME/.bash_aliases
 
 ## General dev tools
 RUN apt update && apt install -y --no-install-recommends \
@@ -18,26 +20,23 @@ RUN apt update && apt install -y --no-install-recommends \
   vim \
   mc \
   htop \
-  dnsutils \  
+  ripgrep \
+  fd-find \
+  dnsutils \
   build-essential \
   ca-certificates \
   openssl
 
-## nvm and node
-SHELL ["/bin/bash", "--login", "-c"]
-RUN apt update  \
-  && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
-#RUN nvm install 18.12.1
+## nvm is installed in the base image
+# node LTS is setup in the devcontainer.json file
 
 ## Python
 RUN apt update && apt install -y python3
 
-## dotnet 7 - don't need this if using mcr dotnet image
-#RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-#RUN dpkg -i packages-microsoft-prod.deb
-#RUN apt update && apt install -y dotnet-sdk-7.0
-
-## Setup other software, including Rust
-RUN bash ./setup.sh
-
-ENV PATH="/root/.cargo/bin:$PATH"
+## Setup other software, including Rust - all done in the devcontainer.json file
+# if using a tool that doesn't support devcontainers then you can use the devcontainer CLI
+# at https://github.com/devcontainers/cli
+# Install it using
+#    $> npm install -g @devcontainers/cli
+# From the project root directory run
+#    $> devcontainer up --workspace-folder .

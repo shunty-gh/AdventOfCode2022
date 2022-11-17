@@ -1,34 +1,56 @@
 {
-	"name": "AoC in C#, Rust and Python",
-    "dockerfile": "Dockerfile",
+	"name": "C# (.NET) / Rust / Python",
+	//"image": "mcr.microsoft.com/devcontainers/dotnet:0-7.0-jammy",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "."
+	},
+	"runArgs": ["--name=aoc2022"],
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "lts"
+		}
 
-    "settings": {
-        "terminal.integrated.shell.linux": "/usr/bin/zsh",
-        "files.exclude": {
-            "**/CODE_OF_CONDUCT.md": true,
-            "**/LICENSE": true
+		,"ghcr.io/devcontainers/features/github-cli:1": {}
+		,"ghcr.io/devcontainers/features/rust:1": {}
+		//,"ghcr.io/devcontainers/features/azure-cli:1": {}
+		//,"ghcr.io/devcontainers/features/go:1": {}
+		//,"ghcr.io/devcontainers/features/python:1": {}
+		//,"ghcr.io/devcontainers/features/common-utils:1": {}  // included in mcr/devcontainers/dotnet:0-7.0-jammy base image
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [5000, 5001],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	//"postCreateCommand": "cp ~/.bash_aliases ~/.oh-my-zsh/custom/.bash_aliases",
+
+	// Configure tool-specific properties.
+    "customizations": {
+        "vscode": {
+            "extensions": [
+				"mutantdino.resourcemonitor"
+                ,"coenraads.bracket-pair-colorizer-2"
+                ,"vscode-icons-team.vscode-icons"
+                ,"visualstudioexptteam.vscodeintellicode"
+
+				,"dbaeumer.vscode-eslint"
+                ,"ms-dotnettools.csharp"
+                ,"donjayamanne.python-extension-pack"
+                ,"donjayamanne.git-extension-pack"
+                ,"cschleiden.vscode-github-actions"
+
+                ,"rust-lang.rust-analyzer"
+                ,"vadimcn.vscode-lldb"
+                ,"serayuzgur.crates"
+
+                //,"ms-vsliveshare.vsliveshare"
+                //,"ms-azuretools.vscode-docker"
+				//,"golang.go"
+            ]
         }
     }
 
-	"extensions": [
-		"dbaeumer.vscode-eslint",
-		"ms-dotnettools.csharp",
-		"ms-python.python",
-		"donjayamanne.git-extension-pack",
-		"christian-kohler.path-intellisense",
-		"sleistner.vscode-fileutils",
-
-        "coenraads.bracket-pair-colorizer-2",
-        "cschleiden.vscode-github-actions",
-        "github.vscode-pull-request-github",
-        "ms-azuretools.vscode-docker",
-        "ms-vsliveshare.vsliveshare",
-        "vscode-icons-team.vscode-icons",
-        "visualstudioexptteam.vscodeintellicode",
-        
-		"matklad.rust-analyzer",
-		"serayuzgur.crates",
-		"vadimcn.vscode-lldb"       
-	],
-
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
 }
