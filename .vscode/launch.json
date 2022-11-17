@@ -1,0 +1,42 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Cargo launch",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--manifest-path","./rs/Cargo.toml"
+                ]
+            },
+            "cwd": "${workspaceFolder}/rs",
+            "relativePathBase": "${workspaceFolder}/rs",
+            "args": []
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": ".NET Core Launch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-dotnet",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/cs/bin/Debug/net7.0/linux-x64/aoc-2022.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/cs",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/py",
+        },
+    ]
+}
