@@ -15,6 +15,7 @@ obj/
 *.nuget.*
 
 *.private.*
+.env
 
 fetch-aoc-data
 fetch-aoc-data.exe
