@@ -12,8 +12,8 @@ static class Program
             if (_config == null)
             {
                 var (pub, priv) = FindSettingsFiles();
-                var cb = new ConfigurationBuilder()
-                    .AddEnvironmentVariables();
+                var denv = FindDotenv();
+                var cb = new ConfigurationBuilder();
 
                 if (!string.IsNullOrWhiteSpace(pub))
                 {
@@ -22,6 +22,11 @@ static class Program
                 if (!string.IsNullOrWhiteSpace(priv))
                 {
                     cb.AddJsonFile(priv, optional: true);
+                }
+                cb.AddEnvironmentVariables();
+                if (!string.IsNullOrWhiteSpace(denv))
+                {
+                    cb.AddDotEnvFile(denv, true, true);
                 }
                 _config = cb.Build();
             }
@@ -213,4 +218,32 @@ static class Program
         }
         throw new DirectoryNotFoundException("Cannot find the directory for the input data. Please create an 'input' directory within the project structure.");
     }
+
+    private static string FindDotenv()
+    {
+        var dstart = Directory.GetCurrentDirectory();
+        var dir = dstart;
+        var envfile = ".env";
+        int maxParentLevels = 6;
+        int parentLevel = 0;
+        while (parentLevel <= maxParentLevels)
+        {
+            var denv = Path.Combine(dir, envfile);
+            if (File.Exists(denv))
+            {
+                return denv;
+            }
+
+            var dinfo = Directory.GetParent(dir);
+            if (dinfo == null)
+            {
+                break;
+            }
+            parentLevel++;
+            dir = dinfo.FullName;
+        }
+        // No .env found
+        return "";
+    }
+
 }

@@ -57,12 +57,20 @@ Running the program without any parameters will print out usage instructions. Th
 
 The program requires an authenticated session cookie in order to access the AoC site and download the correct data. The easiest way to get this is to go to the [AoC](https://adventofcode.com) site in a web browser and login, then open up the developer tools on the web browser (usually F12 or Ctrl+Shift+I). Then goto the `Application` tab in the tools and find the `session` cookie under the `Storage -> Cookies` section. Alternatively look in the network tab for a request to the site, click on the request, then on the Headers tab and look for the session cookie among the request headers.
 
-Once you have copied the cookie you need to paste it into a settings file named `appsettings.private.json` in the project root. **Do not check this file into your source code repository**. For example:
+Once you have copied the cookie you need to paste it into a settings file named `appsettings.private.json` or into a `.env` file in the project or workspace root. **Do not check this file into your source code repository**. For example:
 
 ```
 {
     "sessionCookie": "12345c7465897f5f42456c5d01f64e0ec3d0b9f9b81cd42c977cc8a27fb54e6495d76bc649147157bcc8cd5cffba1523df321f3eb4ae3bfb89c10d15d608fff2"
 }
 ```
+for an `appsettings.json` file
+
+or
+
+```
+sessionCookie=12345c7465897f5f42456c5d01f64e0ec3d0b9f9b81cd42c977cc8a27fb54e6495d76bc649147157bcc8cd5cffba1523df321f3eb4ae3bfb89c10d15d608fff2
+```
+(all on a single line) for a `.env` file.
 
 If the session cookie does not exist, or is incorrect or outdated/expired the application will not work and you will need to login again and get a new cookie.
