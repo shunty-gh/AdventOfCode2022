@@ -23,7 +23,7 @@
 	// "forwardPorts": [5000, 5001],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	//"postCreateCommand": "cp ~/.bash_aliases ~/.oh-my-zsh/custom/.bash_aliases",
+	"postCreateCommand": "cp /.bash_aliases ~/.bash_aliases && cp /.bash_aliases ~/.oh-my-zsh/custom/.bash_aliases",
 
 	// Configure tool-specific properties.
     "customizations": {
