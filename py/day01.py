@@ -14,4 +14,4 @@ for i in input:
 
 sums.sort(reverse=True)
 print("Part 1:", sums[0])
-print("Part 2:", sums[0] + sums[1] + sums[2])
+print("Part 2:", sum(sums[0:3]))
