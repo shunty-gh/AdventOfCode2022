@@ -1,5 +1,9 @@
 use std::fmt::Display;
-use std::io::{BufRead, BufReader, Read};
+use std::io::{
+    BufRead
+    , BufReader
+    //, Read
+};
 use std::path::Path;
 
 const MAX_SEARCH_LEVEL: i32 = 3;
@@ -33,19 +37,19 @@ fn find_input_file(day_no: &i32) -> Option<String> {
     }
 }
 
-fn get_input_ints_from_file(input_file: &str) -> Option<Vec<i32>> {
-    let mut file = std::fs::File::open(input_file).unwrap();
+// fn get_input_ints_from_file(input_file: &str) -> Option<Vec<i32>> {
+//     let mut file = std::fs::File::open(input_file).unwrap();
 
-    // Read in content
-    let mut content = String::new();
-    file.read_to_string(&mut content).unwrap();
-    // Parse ints from content
-    let mut v: Vec<i32> = Vec::new();
-    for s in content.lines() {
-        v.push(s.parse::<i32>().unwrap());
-    }
-    return Some(v);
-}
+//     // Read in content
+//     let mut content = String::new();
+//     file.read_to_string(&mut content).unwrap();
+//     // Parse ints from content
+//     let mut v: Vec<i32> = Vec::new();
+//     for s in content.lines() {
+//         v.push(s.parse::<i32>().unwrap());
+//     }
+//     return Some(v);
+// }
 
 fn get_input_strs_from_file(input_file: &str) -> Vec<String> {
     let file = std::fs::File::open(input_file).expect("no such file");
@@ -55,20 +59,20 @@ fn get_input_strs_from_file(input_file: &str) -> Vec<String> {
         .collect()
 }
 
-pub fn get_input_ints(day: &i32) -> Option<Vec<i32>> {
-    let fname: String;
-    let findfile = find_input_file(day);
-    match findfile {
-        Some(s) => fname = s,
-        None => panic!("Cannot find input file for day {}", day),
-    }
+// pub fn get_input_ints(day: &i32) -> Option<Vec<i32>> {
+//     let fname: String;
+//     let findfile = find_input_file(day);
+//     match findfile {
+//         Some(s) => fname = s,
+//         None => panic!("Cannot find input file for day {}", day),
+//     }
 
-    let vopt = get_input_ints_from_file(&fname);
-    match vopt {
-        Some(v) => return Some(v),
-        None => panic!("Failed to load ints from input file {} for day {}", fname, day),
-    }
-}
+//     let vopt = get_input_ints_from_file(&fname);
+//     match vopt {
+//         Some(v) => return Some(v),
+//         None => panic!("Failed to load ints from input file {} for day {}", fname, day),
+//     }
+// }
 
 pub fn get_input_strs(day: &i32) -> Option<Vec<String>> {
     let fname: String;
