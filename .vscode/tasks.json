@@ -7,11 +7,20 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/cs/aoc-2022.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "${workspaceFolder}/cs/aoc2022.csproj"
+            ],
+            //"isBuildCommand": true,
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-fetch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/fetch/fetch-aoc-data.csproj"
             ],
             "problemMatcher": "$msCompile"
-        }
+        },
     ]
 }
