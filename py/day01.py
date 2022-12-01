@@ -3,17 +3,16 @@ import os
 with open(os.path.dirname(os.path.realpath(__file__)) + "/../input/day01-input", "r") as f:
     input = [line.strip() for line in f.readlines()]
 
-part1 = 0
-part2 = 0
-
+sums = []
 s = 0
 for i in input:
     if i == '':
-        if s > part1:
-            part1 = s
+        sums.append(s)
         s = 0
         continue
 
     s += int(i)
 
-print("Part 1:", part1)
+sums.sort(reverse=True)
+print("Part 1:", sums[0])
+print("Part 2:", sums[0] + sums[1] + sums[2])
