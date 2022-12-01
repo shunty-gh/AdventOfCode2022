@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net;
-using Microsoft.Extensions.Configuration;
-
+﻿
 static class Program
 {
     private static IConfiguration? _config;

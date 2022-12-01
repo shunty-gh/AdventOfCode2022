@@ -1,3 +1,4 @@
+namespace Shunty.AoC;
 
 public static class DotEnvFilesConfigurationExtensions
 {
@@ -30,4 +31,32 @@ public static class DotEnvFilesConfigurationExtensions
 			s.ReloadOnChange = reloadOnChange;
 		});
 	}
+
+    public static string FindDotenv()
+    {
+        var dstart = Directory.GetCurrentDirectory();
+        var dir = dstart;
+        var envfile = ".env";
+        int maxParentLevels = 6;
+        int parentLevel = 0;
+        while (parentLevel <= maxParentLevels)
+        {
+            var denv = Path.Combine(dir, envfile);
+            if (File.Exists(denv))
+            {
+                return denv;
+            }
+
+            var dinfo = Directory.GetParent(dir);
+            if (dinfo == null)
+            {
+                break;
+            }
+            parentLevel++;
+            dir = dinfo.FullName;
+        }
+        // No .env found
+        return "";
+    }
+
 }
