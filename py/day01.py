@@ -1,20 +1,16 @@
 import os
 
+#input = [line.strip() for line in '1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000'.split('\n')]
 with open(os.path.dirname(os.path.realpath(__file__)) + "/../input/day01-input", "r") as f:
     input = [line.strip() for line in f.readlines()]
 
-sums = []
-s = 0
+sums = [0]
 for i in input:
     if i == '':
-        sums.append(s)
-        s = 0
+        sums.append(0)
         continue
 
-    s += int(i)
-# Don't forget the last one!
-if s > 0:
-    sums.append(s)
+    sums[-1] += int(i)
 
 sums.sort(reverse=True)
 print("Part 1:", sums[0])
