@@ -12,6 +12,9 @@ for i in input:
         continue
 
     s += int(i)
+# Don't forget the last one!
+if s > 0:
+    sums.append(s)
 
 sums.sort(reverse=True)
 print("Part 1:", sums[0])
