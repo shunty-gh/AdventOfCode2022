@@ -21,4 +21,4 @@ At the moment you can't choose different days - it just runs anything/everything
 
 ### Debugging
 
-The `.vscode` directory contains a launch configuration to debug the program in Visual Studio Code. Make sure to select the `.NET Launch` option from the debug pane and then press F5 to run/debug.
+The `.vscode` directory contains a launch configuration to debug the program in Visual Studio Code. Make sure to select the `.NET Core` option from the debug pane and then press F5 to run/debug.
