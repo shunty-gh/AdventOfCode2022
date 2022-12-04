@@ -9,16 +9,14 @@ with open(os.path.dirname(os.path.realpath(__file__)) + "/../input/day04-input",
 
 part1 = 0
 part2 = 0
-input.reverse()
 for i in input:
     l1,h1 = i[0].split('-')
     l2,h2 = i[1].split('-')
-    l1,h1 = int(l1), int(h1)
-    l2,h2 = int(l2), int(h2)
+    l1,h1,l2,h2 = int(l1), int(h1), int(l2), int(h2)
     if (l1 >= l2 and h1 <= h2) or (l2 >= l1 and h2 <= h1):
         part1 += 1
 
-    if (l1 <= h2 and h1 >= l2) or (l2 <= h1 and h2 >= l1):
+    if not (h1 < l2 or h2 < l1):
         part2 += 1
 
 print("Part 1: ", part1)
