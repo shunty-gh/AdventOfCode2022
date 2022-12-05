@@ -13,18 +13,11 @@ def move_crates(stacks: list[list[str]], moves: list[str], is_part2: bool) -> st
             to_stack = stacks[to_index - 1]
 
             if is_part2:
-                tmp = []
-                for i in range(from_count):
-                    crate = from_stack.pop()
-                    tmp.append(crate)
-
-                for i in range(from_count):
-                    crate = tmp.pop()
-                    to_stack.append(crate)
+                to_stack.extend(from_stack[-from_count:])
+                del from_stack[-from_count:]
             else:
                 for i in range(from_count):
-                    crate = from_stack.pop()
-                    to_stack.append(crate)
+                    to_stack.append(from_stack.pop())
 
     return str.join('', [s[-1] for s in stacks])
 
