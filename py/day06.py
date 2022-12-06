@@ -2,25 +2,25 @@ import os
 
 # https://adventofcode.com/2022/day/6 - Day 6: Tuning Trouble
 
-def check_packet(pkt: str) -> bool:
+def check_packet(pkt: str) -> tuple[bool, int]:
     for i in range(len(pkt)):
         if (pkt[i] in pkt[i+1:]):
-            return False
-    return True
+            return (False, i+1)
+    return (True, 0)
+
+def scan_input(input: str, packet_len: int) -> int:
+    i = 0
+    while i < len(input):
+        (success, index) = check_packet(input[i:i+packet_len])
+        if success:
+            return i + packet_len
+        i += index
+    raise IndexError("Unable to find an appropriate packet")
 
 ## main
 
 with open(os.path.dirname(os.path.realpath(__file__)) + "/../input/day06-input", "r") as f:
-    input: str = f.read()
+    data: str = f.read()
 
-part1, part2 = 0, 0
-for i in range(len(input)):
-    if part1 == 0 and check_packet(input[i:i+4]):
-        part1 = i + 4
-    if part2 == 0 and  check_packet(input[i:i+14]):
-        part2 = i + 14
-    if part1 > 0 and part2 > 0:
-        break
-
-print("Part 1: ", part1)
-print("Part 2: ", part2)
+print("Part 1: ", scan_input(data, 4))
+print("Part 2: ", scan_input(data, 14))
