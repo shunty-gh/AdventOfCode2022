@@ -1,5 +1,9 @@
-﻿
-namespace Shunty.AoC;
+﻿namespace Shunty.AoC;
+
+public interface AocDaySolution
+{
+    Task Run();
+}
 
 internal partial class Program
 {
@@ -16,8 +20,19 @@ internal partial class Program
         // Get DI based services eg:
         //var cfg = host.Services.GetRequiredService<IConfiguration>();
 
-        var day = new Day01();
-        await day.Run();
+        Console.WriteLine();
+        Console.WriteLine("*** Advent Of Code 2022 (C#) ***");
+        Console.WriteLine();
+        foreach (var t in new Type[] { typeof(Day01), typeof(Day06) })
+        {
+            var day = Activator.CreateInstance(t) as AocDaySolution;
+            if (day != null)
+            {
+                await day.Run();
+                Console.WriteLine();
+            }
+        }
+        Console.WriteLine();
     }
 
     private static void InitialiseLogging()

@@ -1,6 +1,6 @@
 namespace Shunty.AoC;
 
-public class Day01
+public class Day01 : AocDaySolution
 {
     public async Task Run()
     {
