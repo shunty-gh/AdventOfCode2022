@@ -1,8 +1,8 @@
-import copy, os, re
+import os
 
 # https://adventofcode.com/2022/day/6 - Day 6: Tuning Trouble
 
-def check_packet(pkt) -> bool:
+def check_packet(pkt: str) -> bool:
     for i in range(len(pkt)):
         if (pkt[i] in pkt[i+1:]):
             return False
@@ -11,7 +11,7 @@ def check_packet(pkt) -> bool:
 ## main
 
 with open(os.path.dirname(os.path.realpath(__file__)) + "/../input/day06-input", "r") as f:
-    input = f.read()
+    input: str = f.read()
 
 part1, part2 = 0, 0
 for i in range(len(input)):
