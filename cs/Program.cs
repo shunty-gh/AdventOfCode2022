@@ -23,7 +23,7 @@ internal partial class Program
         Console.WriteLine();
         Console.WriteLine("*** Advent Of Code 2022 (C#) ***");
         Console.WriteLine();
-        foreach (var t in new Type[] { typeof(Day01), typeof(Day06) })
+        foreach (var t in new Type[] { typeof(Day01), typeof(Day06), typeof(Day07) })
         {
             var day = Activator.CreateInstance(t) as AocDaySolution;
             if (day != null)
