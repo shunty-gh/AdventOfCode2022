@@ -2,11 +2,11 @@ import os
 
 # https://adventofcode.com/2022/day/10
 
-def write_to_crt_buffer(cy: int, x: int, scr: list[str]):
+def write_to_crt_buffer(cy: int, x: int, buff: list[str]):
     if (cy-1) % 40 in [x-1,x,x+1]:
-        scr.append('#')
+        buff.append('##')
     else:
-        scr.append(' ')
+        buff.append('  ')
 
 def check_freq(cy: int, x: int, fr: dict[int, int]):
     if cy % 20 == 0:
@@ -18,22 +18,16 @@ with open(os.path.dirname(os.path.realpath(__file__)) + "/../input/day10-input",
 regX = 1
 cycle = 1
 freqs = {}
-crt = ['#']
+crt = ['##']
 for line in lines:
-    match line:
-        case 'noop':
-            cycle += 1
-            check_freq(cycle, regX, freqs)
-            write_to_crt_buffer(cycle, regX, crt)
-        case _:  # addx
-            spl = line.split()
-            cycle += 1
-            check_freq(cycle, regX, freqs)
-            write_to_crt_buffer(cycle, regX, crt)
-            cycle += 1
-            regX += int(spl[1])
-            check_freq(cycle, regX, freqs)
-            write_to_crt_buffer(cycle, regX, crt)
+    cycle += 1
+    check_freq(cycle, regX, freqs)
+    write_to_crt_buffer(cycle, regX, crt)
+    if line != "noop":
+        cycle += 1
+        regX += int(line.split()[1])
+        check_freq(cycle, regX, freqs)
+        write_to_crt_buffer(cycle, regX, crt)
 
 p1 = sum(v for k,v in freqs.items() if k in [20,60,100,140,180,220])
 print("Part 1: ", p1)
