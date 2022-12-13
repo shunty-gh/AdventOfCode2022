@@ -1,25 +1,25 @@
-import os, sys
-from collections import defaultdict, deque
-from functools import cmp_to_key
+import os
 
-# https://adventofcode.com/2022/day/13
+# https://adventofcode.com/2022/day/13 - Day 13: Distress Signal
 
 def parse_list(lststr: str):
-    result: list[list[int] | int] = []
+    """ Parse a string of the form [[1],[2,3,4]] into an appropriate list of lists and ints """
+
+    assert(lststr[0] == '[' and lststr [-1] == ']')
+    src = lststr[1:len(lststr)-1] # ignore the leading and trailing '[',']' characters
+    result = []
     last = result
-    curr: list[list[int] | int] = result
+    curr = result
     nextintstr = ''
-    src = lststr[1:len(lststr)-1]
     for c in src:
         match c:
             case '[':
-                # start new list
-                ls = []
+                # start new sub-list
                 last = curr
-                curr.append(ls)
-                curr = ls
+                curr.append([])
+                curr = curr[-1]
             case ']':
-                # end current list, if any, append it, start new one
+                # end current list, go back to prior list
                 if nextintstr != '':
                     curr.append(int(nextintstr))
                     nextintstr = ''
@@ -35,7 +35,9 @@ def parse_list(lststr: str):
 
     return result
 
-def compare_elements(el, er) -> int:
+def compare_elements(el: list | int, er: list | int) -> int:
+    """ Determine if el 'is less than' er. Return 1 if so or 0 if 'equal' or -1 if er < el """
+
     if isinstance(el, int) and isinstance(er, int):
         return 1 if el < er else 0 if el == er else -1
     elif isinstance(el, list) and isinstance(er, list):
@@ -46,68 +48,43 @@ def compare_elements(el, er) -> int:
             if res != 0:
                 return res
         return 0 if len(el) == len(er) else 1
-    else:
+    else: # only one or the other is a list
         if isinstance(el, list):
             return compare_elements(el, [er])
         else:
             return compare_elements([el], er)
 
-def compare_pair(ll, rr) -> int:
-    left = parse_list(ll)
-    right = parse_list(rr)
-    return compare_elements(left, right)
-
-
-# pairs = """[1,1,3,1,1]
-# [1,1,5,1,1]
-
-# [[1],[2,3,4]]
-# [[1],4]
-
-# [9]
-# [[8,7,6]]
-
-# [[4,4],4,4]
-# [[4,4],4,4,4]
-
-# [7,7,7,7]
-# [7,7,7]
-
-# []
-# [3]
-
-# [[[]]]
-# [[]]
-
-# [1,[2,[3,[4,[5,6,7]]]],8,9]
-# [1,[2,[3,[4,[5,6,0]]]],8,9]""".split('\n\n')
+# pairs = ("[1,1,3,1,1]\n[1,1,5,1,1]\n\n"
+# "[[1],[2,3,4]]\n[[1],4]\n\n"
+# "[9]\n[[8,7,6]]\n\n"
+# "[[4,4],4,4]\n[[4,4],4,4,4]\n\n"
+# "[7,7,7,7]\n[7,7,7]\n\n"
+# "[]\n[3]\n\n"
+# "[[[]]]\n[[]]\n\n"
+# "[1,[2,[3,[4,[5,6,7]]]],8,9]\n[1,[2,[3,[4,[5,6,0]]]],8,9]"
+# ).split('\n\n')
 with open(os.path.dirname(os.path.realpath(__file__)) + "/../input/day13-input", "r") as f:
     pairs = f.read().strip().split('\n\n')
 pairs = [pair.split('\n') for pair in pairs]
+packets = [(parse_list(p1), parse_list(p2)) for (p1, p2) in pairs]
 
 # Part 1
 valid_pairs = []
-for i, (p1, p2) in enumerate(pairs):
-    if compare_pair(p1, p2) >= 0:
+for i, (p1, p2) in enumerate(packets):
+    if compare_elements(p1, p2) >= 0:
         valid_pairs.append(i+1)
 
 print("Part 1: ", sum(valid_pairs))
 
 # Part 2
-packets = []
-for p1, p2 in pairs:
-    packets.append(parse_list(p1))
-    packets.append(parse_list(p2))
-
-# no need to sort. Just find how many items are less than d1 and d2
-d1 = parse_list('[[2]]')
-d2 = parse_list('[[6]]')
+# No need to sort. Just find how many items are less than d1 and d2
+d1, d2 = parse_list('[[2]]'), parse_list('[[6]]')
 id1, id2 = 0, 0
-for p in packets:
-    if compare_elements(p, d1) > 0:
-        id1 += 1
-    if compare_elements(p, d2) > 0:
-        id2 += 1
+for p1, p2 in packets:
+    id1 += 1 if compare_elements(p1, d1) > 0 else 0
+    id1 += 1 if compare_elements(p2, d1) > 0 else 0
+    id2 += 1 if compare_elements(p1, d2) > 0 else 0
+    id2 += 1 if compare_elements(p2, d2) > 0 else 0
 
-# don't forget zero indexed and d2 is also greater than d1
+# don't forget they're zero indexed and d2 is also greater than d1
 print("Part 2: ", (id1+1)*(id2+2))
