@@ -3,6 +3,11 @@ from collections import defaultdict
 
 # https://adventofcode.com/2022/day/14 - Day 14: Regolith Reservoir
 
+# Set either/both of these to true if you want to see the cave printed on the console.
+# You'll need a console width of about 360 characters to show it properly for part 2
+PRINT_CAVE_P1 = False
+PRINT_CAVE_P2 = False
+
 def build_cave(src: list[list[tuple[int,int]]]) -> dict[tuple[int,int], str]:
     result = defaultdict(lambda: '.')
     for coords in src:
@@ -28,6 +33,27 @@ def find_next(map: dict[tuple[int,int],str], x: int, y: int) -> tuple[int,int] |
         return (x+1,y+1)
     else:
         return None
+
+def print_cave(cave: dict[tuple[int,int],str]):
+    xmin = min([key[0] for key in cave.keys()])
+    ymin = min([key[1] for key in cave.keys()])
+    xmax = max([key[0] for key in cave.keys()])
+    ymax = max([key[1] for key in cave.keys()])
+
+    print('')
+    for y in range(ymin-1, ymax):
+        ln = ''
+        for x in range(xmin-1, xmax+1):
+            match cave[(x,y)]:
+                case '.':
+                    ln += ' '
+                case 'o':
+                    ln += '.'
+                case '#':
+                    ln += '#'
+        print(ln)
+    print("#" * (xmax-xmin+3))
+    print("\n  You'll need at least", xmax-xmin+3, "character width to make this look right (and", ymax-ymin+3, "height to see it all)\n")
 
 def pour_the_sand(cave: dict[tuple[int,int],str], is_part2: bool) -> int:
     maxdepth = max([key[1] for key in cave.keys()])
@@ -57,6 +83,10 @@ def pour_the_sand(cave: dict[tuple[int,int],str], is_part2: bool) -> int:
             newpath.append((x,y))
             step = (next, newpath)
 
+    if PRINT_CAVE_P1 and not is_part2:
+        print_cave(cave)
+    if PRINT_CAVE_P2 and is_part2:
+        print_cave(cave)
     return sum([1 for c in cave.values() if c == 'o'])
 
 
