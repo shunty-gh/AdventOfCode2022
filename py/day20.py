@@ -3,7 +3,8 @@ import os
 # https://adventofcode.com/2022/day/20 - Day 20: Grove Positioning System
 
 # Probably could be quicker with a bit more thought and tracking the head/next item
-# index a bit better when mixing but it runs in under a minute on my machine
+# index a bit better when mixing but it runs in under a minute on my machine.
+# There's probably some modulo theory that could be applied. But nobody wants to see that :-)
 
 class Node:
     def __init__(self, value: int):
@@ -17,6 +18,7 @@ class CircularList:
         self.head: Node | None = None
         self.zero: Node | None = None
         self.len: int = 0
+        self.indexes: dict[int, Node] = {}
         if len(data) > 0:
             self.add_range(data, mult)
 
@@ -45,6 +47,7 @@ class CircularList:
         for i,item in enumerate(data):
             nd = self.add(item * mult)
             nd.index = i
+            self.indexes[nd.index] = nd
 
     def mix(self):
         """ Do the magic mixing of values """
@@ -97,6 +100,10 @@ class CircularList:
             nd.next.previous = nd
 
     def _find_index(self, index: int) -> Node | None:
+        # Look in the 'cache' first. Doesn't speed it up as much as I expected.
+        if index in self.indexes:
+            return self.indexes[index]
+
         next = self.head
         start = next
         while next != None and next.index != index:
