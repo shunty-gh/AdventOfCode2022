@@ -6,7 +6,7 @@ import os
 # index a bit better when mixing but it runs in under a minute on my machine.
 #
 # Turns out it could be a lot easier than here by just doing array deletes and inserts.
-# See the C# version at ../cs/days/day20.cs or https://github.com/shunty-gh/AdventOfCode2022/blob/main/cs/days/day20.cs
+# See the C# version at [../cs/days/day20.cs](https://github.com/shunty-gh/AdventOfCode2022/blob/main/cs/days/day20.cs)
 
 class Node:
     def __init__(self, value: int):
