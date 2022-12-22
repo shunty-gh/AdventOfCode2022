@@ -37,11 +37,11 @@ for i,ln in enumerate(map):
     if len(ln) < x_mod:
         map[i] += ' ' * (x_mod - len(ln))
 
-x,y = 0,0
+x,y = map[0].index('.'),0
 # find the initial start pos
-ln = map[0]
-while ln[x] == ' ':
-    x += 1
+# ln = map[0]
+# while ln[x] == ' ':
+#     x += 1
 
 dir_delta = [(1,0), (0,1), (-1,0), (0,-1)]
 facing = 0
