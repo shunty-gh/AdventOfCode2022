@@ -67,6 +67,10 @@ q = deque([entrance])
 best = sys.maxsize
 count = 0
 found = False
+targets = [exit, entrance, exit]
+target_index = 0
+target = targets[target_index]
+p1 = 0
 while not found:
     count += 1
     newq = deque()
@@ -77,9 +81,17 @@ while not found:
 
         moves = find_moves(cx,cy, wind, max_x, max_y)
         for mx,my in moves:
-            if (mx,my) == exit:
-                best = count
-                found = True
+            if (mx,my) == target:
+                if target_index == 0:
+                    p1 = count
+                # print('P2:', count)
+                target_index += 1
+                if target_index > 2:
+                    found = True
+                    break
+                newq.clear()
+                newq.append(target)
+                target = targets[target_index]
                 break
             if not (mx,my) in newq:
                 newq.append((mx,my))
@@ -88,5 +100,5 @@ while not found:
         break
     q = newq
 
-print("Part 1: ", best)
-print("Part 2: ", )
+print("Part 1: ", p1)
+print("Part 2: ", count)
