@@ -1,7 +1,7 @@
-import os, sys
-from collections import defaultdict, deque
+import os
+from collections import defaultdict
 
-# https://adventofcode.com/2022/day/24
+# https://adventofcode.com/2022/day/24 - Day 24: Blizzard Basin
 
 def blow(wind,maxx,maxy):
     result = defaultdict(list)
@@ -13,14 +13,14 @@ def blow(wind,maxx,maxy):
                 if w1 == '>':
                     nx = x+1 if x<maxx-1 else 1
                     result[(nx,y)].append(w1)
-                elif w1 == '<':
+                else: # w1 == '<'
                     nx = x-1 if x>1 else maxx-1
                     result[(nx,y)].append(w1)
-            else:
+            else: # w1 in ['v','^']
                 if w1 == 'v':
                     ny = y+1 if y<maxy-1 else 1
                     result[(x,ny)].append(w1)
-                else:
+                else: # w1 == '^'
                     ny = y-1 if y>1 else maxy-1
                     result[(x,ny)].append(w1)
     return result
@@ -63,42 +63,38 @@ exit = (valley[-1].index('.'),len(valley)-1)
 max_x = len(valley[0])-1
 max_y = len(valley)-1
 
-q = deque([entrance])
-best = sys.maxsize
-count = 0
-found = False
+q = set([entrance])
 targets = [exit, entrance, exit]
 target_index = 0
 target = targets[target_index]
-p1 = 0
-while not found:
+count, p1,p2 = 0,0,0
+while p2 == 0:
     count += 1
-    newq = deque()
+    nextq = set()
     wind = blow(wind,max_x,max_y)
     # draw(wind)
-    while len(q) > 0:
-        (cx,cy) = q.popleft()
-
+    next_target = False
+    for (cx,cy) in q:
         moves = find_moves(cx,cy, wind, max_x, max_y)
         for mx,my in moves:
             if (mx,my) == target:
+                next_target = True
                 if target_index == 0:
                     p1 = count
-                # print('P2:', count)
-                target_index += 1
-                if target_index > 2:
-                    found = True
+                elif target_index == 2:
+                    p2 = count
                     break
-                newq.clear()
-                newq.append(target)
+                target_index += 1
                 target = targets[target_index]
-                break
-            if not (mx,my) in newq:
-                newq.append((mx,my))
+                nextq.clear()
+            if not (mx,my) in nextq:
+                nextq.add((mx,my))
+        if next_target:
+            break
 
-    if len(newq) == 0:
+    if len(nextq) == 0:
         break
-    q = newq
+    q = nextq
 
 print("Part 1: ", p1)
-print("Part 2: ", count)
+print("Part 2: ", p2)
