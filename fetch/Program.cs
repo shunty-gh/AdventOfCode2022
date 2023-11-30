@@ -114,8 +114,11 @@ static class Program
 
 
     static readonly Uri baseAddress = new Uri("https://adventofcode.com/");
-    private static async Task DownloadInput(int day, string outputDir, int year = 2022)
+    private static async Task DownloadInput(int day, string outputDir, int year = 0)
     {
+        if (year == 0)
+            year = DateTime.Today.Year;
+
         // Need to have the session cookie available
         var cookie = Program.Configuration["sessionCookie"];
         if (string.IsNullOrWhiteSpace(cookie))
