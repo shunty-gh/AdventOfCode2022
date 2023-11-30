@@ -1,6 +1,6 @@
 {
 	"name": "C# (.NET) / Rust / Python",
-	//"image": "mcr.microsoft.com/devcontainers/dotnet:0-7.0-jammy",
+	//"image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0-jammy",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "."

@@ -23,12 +23,12 @@
             "request": "launch",
             "preLaunchTask": "build-dotnet",
             "windows": {
-                //"program": "${workspaceFolder}/cs/bin/Debug/net7.0/win-x64/aoc2022.dll",
-                "program": "${workspaceFolder}/cs/bin/Debug/net7.0/aoc2022.dll",
+                //"program": "${workspaceFolder}/cs/bin/Debug/net8.0/win-x64/aoc2022.dll",
+                "program": "${workspaceFolder}/cs/bin/Debug/net8.0/aoc2022.dll",
             },
             "linux": {
-                //"program": "${workspaceFolder}/cs/bin/Debug/net7.0/linux-x64/aoc2022.dll",
-                "program": "${workspaceFolder}/cs/bin/Debug/net7.0/aoc2022.dll",
+                //"program": "${workspaceFolder}/cs/bin/Debug/net8.0/linux-x64/aoc2022.dll",
+                "program": "${workspaceFolder}/cs/bin/Debug/net8.0/aoc2022.dll",
             },
             "args": [],
             "cwd": "${workspaceFolder}/cs",
@@ -42,10 +42,10 @@
             "request": "launch",
             "preLaunchTask": "build-fetch",
             "windows": {
-                "program": "${workspaceFolder}/fetch/bin/Debug/net7.0/win-x64/fetch-aoc-data.dll",
+                "program": "${workspaceFolder}/fetch/bin/Debug/net8.0/win-x64/fetch-aoc-data.dll",
             },
             "linux": {
-                "program": "${workspaceFolder}/fetch/bin/Debug/net7.0/linux-x64/fetch-aoc-data.dll",
+                "program": "${workspaceFolder}/fetch/bin/Debug/net8.0/linux-x64/fetch-aoc-data.dll",
             },
             "args": [ "1" ],
             "cwd": "${workspaceFolder}/fetch",

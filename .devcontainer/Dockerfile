@@ -1,8 +1,8 @@
-#FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy
+#FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy
 
 # This image sets the user as 'vscode' and uses mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim
 # along with a .devcontainer configuration. See https://github.com/devcontainers/images/tree/main/src/dotnet
-FROM mcr.microsoft.com/devcontainers/dotnet:0-7.0-jammy
+FROM mcr.microsoft.com/devcontainers/dotnet:1-8.0-jammy
 
 COPY ./.bash_aliases /root/.bash_aliases
 COPY ./.bash_aliases $HOME/.bash_aliases
